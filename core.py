@@ -46,7 +46,7 @@ def fetch_url():
     #Now we are going to validate the final url
     try:
         response = requests.head(final_url,timeout=5)
-        if response.status_code in {200, 301, 302, 204}:
+        if response.status_code in {200}:
             print(f"[-] The website was validated with the code as : {response.status_code}")
             check_cache(final_url)
         else:
