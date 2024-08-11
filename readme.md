@@ -49,7 +49,8 @@ Follow these steps to set up and run WebKit:
 
    Select the website you want to analyze. Enter the website URL into the tool as instructed in the application.
 
-   ![pic1](https://github.com/user-attachments/assets/57e7af10-d25e-44bc-a626-5040d2580306)
+   ![pic1](https://github.com/user-attachments/assets/c7a7717c-93bd-4a21-a790-d7295da276ef)
+
 
 2. **Run the Tool**
 
