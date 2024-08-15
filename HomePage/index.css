@@ -1,0 +1,38 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.content {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    height: 80vh;
+    background-color: #fff;
+    margin: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 10px rgba(0,0,0,0.1);
+}
+
+.logo-container {
+    text-align: center;
+    margin:40px;
+}
+
+.logo {
+    height:500px;
+    margin-bottom: 20px;
+}
+
+h1 {
+    font-size: 7em;
+    margin: 0;
+    color: #333;
+}
+
+h6 {
+    font-size: 2em;
+    color: #666;
+}
