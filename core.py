@@ -49,29 +49,32 @@ def fetch_url():
         if response.status_code in {200}:
             print(f"[-] The website was validated with the code as : {response.status_code}")
             check_cache(final_url)
+            return subdirectories
         else:
             fail("The URL returned with a response code other than needed for validity")
     except Exception as e:
         print(e)
 
 def check_subdirectory(final_url, subdirectory_list, stop_event):
-    while not stop_event.is_set():
-        try:
-            subdirectory = subdirectory_list.get(timeout=1)
-            test_url = final_url + subdirectory
+    with open('directories.txt','a') as f:
+        while not stop_event.is_set():
             try:
-                #print(f"[-] Testing the URL: {test_url}")  # Added for debugging
-                response = requests.head(test_url, timeout=5)
-                if response.status_code in {200, 301, 302, 204}:
-                    print(CGREEN + f"[-] Found a subdirectory: {final_url+subdirectory}" + CEND)
-                    subdirectories.append(final_url+subdirectory)
-            except requests.RequestException as e:
-                pass
-                #print(f"[!] Error requesting {test_url}: {e}")
-            finally:
-                subdirectory_list.task_done()
-        except queue.Empty:
-            break
+                subdirectory = subdirectory_list.get(timeout=1)
+                test_url = final_url + subdirectory
+                try:
+                    #print(f"[-] Testing the URL: {test_url}")  # Added for debugging
+                    response = requests.head(test_url, timeout=5)
+                    if response.status_code in {200, 301, 302, 204}:
+                        print(CGREEN + f"[-] Found a subdirectory: {final_url+subdirectory}" + CEND)
+                        subdirectories.append(final_url+subdirectory)
+                        f.write(final_url+subdirectory+'\n')
+                except requests.RequestException as e:
+                    pass
+                    #print(f"[!] Error requesting {test_url}: {e}")
+                finally:
+                    subdirectory_list.task_done()
+            except queue.Empty:
+                break
 
 def enumerate(final_url):
     # Opens the dictionary file containing common subdirectories
@@ -157,6 +160,5 @@ def check_cache(final_url):
     else:
         print(f"[-] {final_url} not found in cache.")
         enumerate(final_url)
-
 
 fetch_url()
